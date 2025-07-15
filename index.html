@@ -6,7 +6,60 @@
 </head>
 <body>
     <script>
-        
+        function getComputerChoice() {
+            const choices = ['rock', 'paper', 'scissors'];
+            const randomIndex = Math.floor(Math.random() * choices.length);
+            return choices[randomIndex];
+        }
+
+        function getHumanChoice() {
+            const humanChoice = prompt("Enter rock, paper, or scissors:").toLowerCase();
+            if (['rock', 'paper', 'scissors'].includes(humanChoice)) {
+                return humanChoice;
+            } else {
+                alert("Invalid choice! Please try again.");
+                return getHumanChoice();
+            }
+        }
+
+        function playGame() {
+            var humanScore = 0;
+            var computerScore = 0;
+
+            function playRound(humanChoice, computerChoice) {
+                if (humanChoice === computerChoice) {
+                    return "It's a tie!";
+                } else if (
+                    (humanChoice === 'rock' && computerChoice === 'scissors') ||
+                    (humanChoice === 'paper' && computerChoice === 'rock') ||
+                    (humanChoice === 'scissors' && computerChoice === 'paper')
+                ) {
+                    humanScore++;
+                    return `You win! ${humanChoice} beats ${computerChoice}.`;
+                } else {
+                    computerScore++;
+                    return `You lose! ${computerChoice} beats ${humanChoice}.`;
+                }
+            }
+
+            for (let i = 1; i <= 5; i++) {
+                const humanChoice = getHumanChoice();
+                const computerChoice = getComputerChoice();
+                const result = playRound(humanChoice, computerChoice);
+                alert(`Round ${i}: ${result}`);
+            }
+
+            const finalResult = `Final Score - You: ${humanScore}, Computer: ${computerScore}.` +
+                   (humanScore > computerScore ? " You win the game!" : 
+                    humanScore < computerScore ? " You lose the game!" : 
+                    " It's a draw!");
+            
+            alert(finalResult);
+            return finalResult;
+        }
+
+        // Start the game
+        playGame();
     </script>
 </body>
 </html>
