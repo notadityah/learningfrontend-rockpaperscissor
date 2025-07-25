@@ -35,15 +35,27 @@
         }
     </style>
     <script>
+        // Game state variables to track scores
         let humanScore = 0;
         let computerScore = 0;
 
+        /**
+         * Generates a random choice for the computer player
+         * @returns {string} Random choice from 'rock', 'paper', or 'scissors'
+         */
         function getComputerChoice() {
             const choices = ['rock', 'paper', 'scissors'];
             const randomIndex = Math.floor(Math.random() * choices.length);
             return choices[randomIndex];
         }
 
+        /**
+         * Plays one round of Rock Paper Scissors and determines the winner
+         * Updates the global score variables based on the result
+         * @param {string} humanChoice - The human player's choice
+         * @param {string} computerChoice - The computer's choice
+         * @returns {string} Result message describing the outcome of the round
+         */
         function playRound(humanChoice, computerChoice) {
             if (humanChoice === computerChoice) {
                 return `You chose ${humanChoice}. \nComputer also chose ${computerChoice}. \nIt's a tie!`;
@@ -60,6 +72,10 @@
             }
         }
 
+        /**
+         * Updates the score display and checks for game-ending conditions
+         * Resets the game when either player reaches 5 points
+         */
         function updateScore() {
             document.getElementById('score').innerText = `Score - You: ${humanScore}, Computer: ${computerScore}`;
             if (humanScore === 5) {
@@ -77,10 +93,18 @@
             }
         }
 
+        /**
+         * Updates the result display with the current round outcome
+         * @param {string} message - The message to display to the user
+         */
         function updateResult(message) {
             document.getElementById('result').innerText = message;
         }
 
+        /**
+         * Initializes the game by setting up event listeners for all buttons
+         * and displaying the initial score. This function starts the game loop.
+         */
         function playGame() {
             const buttons = document.querySelectorAll('button');
             buttons.forEach(button => {
@@ -95,8 +119,6 @@
                     updateScore();
                 });
             });
-            
-            // Initialize display
             updateScore();
         }
 
